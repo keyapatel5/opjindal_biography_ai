@@ -51,7 +51,7 @@ MIN_MATCH  = 0.35
 SEM_FLOOR  = 0.25
 EARLY_EXIT = 0.65
 TOP_K      = 50
-STT_MODEL  = "small"
+STT_MODEL  = "tiny"
 
 HINDI_CONFUSED_LANGS = {
     "ur", "ne", "mr", "pa", "gu", "bn", "ar", "fa", "ja", "zh"
@@ -925,68 +925,19 @@ db_watcher.start(mongo)
 def transcribe(wav_path):
     try:
         t0 = time.time()
-
-        segs, info = stt_model.transcribe(
-            wav_path, beam_size=5,
-            vad_filter=False,
-        )
+        segs, info = stt_model.transcribe(wav_path, beam_size=1, vad_filter=False)
         text = " ".join(s.text for s in segs).strip()
         det  = info.language
         prob = info.language_probability
         ms   = (time.time() - t0) * 1000
-
-        log.info(f"STT[auto] lang={det} prob={prob:.2f} {ms:.0f}ms ? '{text[:80]}'")
+        log.info(f"STT lang={det} prob={prob:.2f} {ms:.0f}ms '{text[:80]}'")
 
         if not text or len(text) < 2:
-            segs, _ = stt_model.transcribe(wav_path, beam_size=5, language="en", vad_filter=True)
-            return " ".join(s.text for s in segs).strip(), "en"
+            return "", "en"
 
-        dev_chars = len(re.findall(r"[\u0900-\u097F]", text))
-
-        # Devanagari present + plausible Hindi lang ? confirmed Hindi
-        if dev_chars >= 1 and det in ("hi", "ur", "ne", "mr"):
-            log.info(f"STT: Hindi confirmed (dev={dev_chars} lang={det})")
+        dev = len(re.findall(r"[\u0900-\u097F]", text))
+        if dev >= 2 or det in ("hi", "ne", "mr"):
             return text, "hi"
-
-        # Strong Devanagari regardless of detected lang
-        if dev_chars >= 5:
-            log.info(f"STT: Hindi strong devanagari ({dev_chars})")
-            return text, "hi"
-
-        # Good English confidence ? trust it
-        if det == "en" and prob >= 0.60:
-            log.info(f"STT: English (prob={prob:.2f})")
-            return text, "en"
-
-        # Whisper says Hindi but romanized output
-        if det == "hi":
-            words      = text.lower().split()
-            hi_ratio   = sum(1 for w in words if re.sub(r"[^\w]", "", w) in TR.words) / (len(words) or 1)
-            log.info(f"STT: Whisper=hi romanized, hindi_ratio={hi_ratio:.2f}")
-            if hi_ratio >= 0.15 or prob >= 0.40:
-                return text, "hi"
-
-        # Confused language ? retry as Hindi
-        if det in HINDI_CONFUSED_LANGS:
-            log.info(f"STT: '{det}' confused, retrying as Hindi...")
-            segs2, _  = stt_model.transcribe(wav_path, beam_size=5, language="hi", vad_filter=True)
-            text_hi   = " ".join(s.text for s in segs2).strip()
-            dev2      = len(re.findall(r"[\u0900-\u097F]", text_hi))
-            words2    = text_hi.lower().split()
-            hi_ratio2 = sum(1 for w in words2 if re.sub(r"[^\w]", "", w) in TR.words) / (len(words2) or 1)
-            log.info(f"STT[hi-retry] dev={dev2} ratio={hi_ratio2:.2f} ? '{text_hi[:60]}'")
-            if text_hi and (dev2 >= 2 or hi_ratio2 >= 0.20):
-                log.info("STT: Hindi retry accepted")
-                return text_hi, "hi"
-
-        # Force English fallback
-        log.info("STT: forcing English...")
-        segs3, _ = stt_model.transcribe(wav_path, beam_size=5, language="en", vad_filter=True)
-        text_en  = " ".join(s.text for s in segs3).strip()
-        if text_en and len(text_en) > 2:
-            log.info(f"STT: English forced ? '{text_en[:60]}'")
-            return text_en, "en"
-
         return text, "en"
 
     except Exception as e:
