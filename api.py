@@ -51,7 +51,7 @@ MIN_MATCH  = 0.35
 SEM_FLOOR  = 0.25
 EARLY_EXIT = 0.65
 TOP_K      = 50
-STT_MODEL  = "tiny"
+STT_MODEL  = "base"
 
 HINDI_CONFUSED_LANGS = {
     "ur", "ne", "mr", "pa", "gu", "bn", "ar", "fa", "ja", "zh"
@@ -925,7 +925,7 @@ db_watcher.start(mongo)
 def transcribe(wav_path):
     try:
         t0 = time.time()
-        segs, info = stt_model.transcribe(wav_path, beam_size=1, vad_filter=False)
+        segs, info = stt_model.transcribe(wav_path, beam_size=3, vad_filter=False)
         text = " ".join(s.text for s in segs).strip()
         det  = info.language
         prob = info.language_probability
@@ -934,6 +934,14 @@ def transcribe(wav_path):
 
         if not text or len(text) < 2:
             return "", "en"
+
+        # Low confidence English → retry forced English
+        if det == "en" and prob < 0.5 and len(text) > 2:
+            segs2, _ = stt_model.transcribe(wav_path, beam_size=3, language="en", vad_filter=False)
+            t2 = " ".join(s.text for s in segs2).strip()
+            if t2 and len(t2) >= len(text):
+                text = t2
+                log.info(f"STT en-retry: '{text[:80]}'")
 
         dev = len(re.findall(r"[\u0900-\u097F]", text))
         if dev >= 2 or det in ("hi", "ne", "mr"):
