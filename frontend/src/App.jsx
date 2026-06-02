@@ -66,6 +66,9 @@ export default function App() {
       const data = await res.json();
       console.log("Server response:", data);
 
+      if (data.user_text) {
+        setMessages(prev => [...prev, { role: 'user', text: data.user_text }]);
+      }
       const aiText = data.text ?? data.response ?? data.answer ?? data.reply ?? "";
       setMessages(prev => [...prev, { role: 'ai', text: aiText || "No answer received." }]);
 

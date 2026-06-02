@@ -427,13 +427,13 @@ def tok(text):
 
 
 def lang_detect(text, stt_hint: str = None):
-    if stt_hint == "hi":
-        return "hi"
     hc = len(re.findall(r"[\u0900-\u097F]", text))
     total = len(text.strip())
     if total == 0:
         return "en"
     if (hc / total) > 0.3:
+        return "hi"
+    if stt_hint == "hi" and hc > 0:
         return "hi"
     words = text.lower().split()
     wc = sum(1 for w in words if re.sub(r"[^\w]", "", w) in TR.words)

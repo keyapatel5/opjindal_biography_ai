@@ -20,7 +20,7 @@
     "category": "Basic",
     "question_english": "In which year was O P Jindal born?",
     "answer_english": "He was born on 7 August 1930",
-    "question_hindi": "ओ पी जिंदल का जन्म किस वर्ष में हुआ था?",
+    "question_hindi": "O P Jindal ka janm kis varsh hua?",
     "answer_hindi": "उनका जन्म 7 अगस्त 1930 को हुआ था"
   },
   {
@@ -1730,10 +1730,10 @@
   {
     "id": 217,
     "category": "Family",
-    "question_english": "How many children did O P Jindal have?",
-    "answer_english": "He had four sons: Prithviraj, Sajjan, Ratan, and Naveen Jindal",
-    "question_hindi": "ओ पी जिंदल के कितने बच्चे थे?",
-    "answer_hindi": "उनके चार बेटे थे: पृथ्वीराज, सज्जन, रतन और नवीन जिंदल"
+    "question_english": "Did O.P. Jindal have daughters?",
+    "answer_english": "Yes, O.P. Jindal had 5 daughters :Suman, Seema, Saroj, Urmila, and Nirmala.",
+    "question_hindi": "क्या ओ.पी. जिंदल की बेटियां थीं?",
+    "answer_hindi": "हाँ, ओ.पी. जिंदल की 5 बेटियाँ थीं: सुमन, सीमा, सरोज, उर्मिला और निर्मला।"
   },
   {
     "id": 218,
@@ -3283,9 +3283,9 @@
     "id": 411,
     "category": "Family",
     "question_english": "How many daughters did O P Jindal have?",
-    "answer_english": "He had five daughters.",
+    "answer_english": "He had five daughters: Saroj, Nirmala, Urmila, Kamala, and Seema.",
     "question_hindi": "ओ पी जिंदल की कितनी बेटियाँ थीं?",
-    "answer_hindi": "उनकी पांच बेटियां थीं."
+    "answer_hindi": "उनकी पांच बेटियां थीं:सरोज, निर्मला, उर्मिला, कमला और सीमा."
   },
   {
     "id": 412,
@@ -6830,5 +6830,85 @@
     "answer_english": "Inspiring millions of Indians to dream big and work hard to achieve their goals",
     "question_hindi": "ओ पी जिंदल का सबसे स्थायी योगदान क्या है?",
     "answer_hindi": "लाखों भारतीयों को बड़े सपने देखने और अपने लक्ष्यों को प्राप्त करने के लिए कड़ी मेहनत करने के लिए प्रेरित करना"
+  },
+  {
+    "id": 855,
+    "category": "Family",
+    "question_english": "How many children did O.P. Jindal have in total?",
+    "answer_english": "O.P. Jindal had nine children in total.",
+    "question_hindi": "ओ.पी. जिंदल के कुल कितने बच्चे थे?",
+    "answer_hindi": "ओ.पी. जिंदल के कुल नौ बच्चे थे।"
+  },
+  {
+    "id": 856,
+    "category": "Family",
+    "question_english": "How many children did O.P. Jindal have with Vidya Devi (first wife)?",
+    "answer_english": "He had six children with his first wife, Vidya Devi.",
+    "question_hindi": "ओ.पी. जिंदल की पहली पत्नी(विद्या देवी) से कितने बच्चे थे?",
+    "answer_hindi": "उनकी पहली पत्नी विद्या देवी से छह बच्चे थे।"
+  },
+  {
+    "id": 857,
+    "category": "Family",
+    "question_english": "How many children did O.P. Jindal have with Savitri Jindal(second wife)?",
+    "answer_english": "He had three children with Savitri Jindal.",
+    "question_hindi": "ओ.पी. जिंदल की दूसरी पत्नी (सावित्री जिंदल) से कितने बच्चे थे?",
+    "answer_hindi": "उनकी  दूसरी पत्नी सावित्री जिंदल से तीन बच्चे थे।"
+  },
+  {
+    "id": 858,
+    "category": "Family",
+    "question_english": "Who was O.P. Jindal's first wife?",
+    "answer_english": "O.P. Jindal's first wife was Vidya Devi.",
+    "question_hindi": "ओ.पी. जिंदल की पहली पत्नी कौन थीं?",
+    "answer_hindi": "ओ.पी. जिंदल की पहली पत्नी विद्या देवी थीं।"
+  },
+  {
+    "id": 859,
+    "category": "Family",
+    "question_english": "Who was O.P. Jindal's second wife?",
+    "answer_english": "O.P. Jindal's second wife was Savitri Jindal.",
+    "question_hindi": "ओ.पी. जिंदल की दूसरी पत्नी कौन थीं?",
+    "answer_hindi": "ओ.पी. जिंदल की दूसरी पत्नी सावित्री जिंदल थीं।"
+  },
+  {
+    "id": 860,
+    "category": "Family",
+    "question_english": "Why did O.P. Jindal marry Savitri Jindal?",
+    "answer_english": "He married Savitri Jindal after the death of his first wife, Vidya Devi.",
+    "question_hindi": "ओ.पी. जिंदल ने सावित्री जिंदल से विवाह क्यों किया?",
+    "answer_hindi": "उन्होंने अपनी पहली पत्नी विद्या देवी के निधन के बाद सावित्री जिंदल से विवाह किया।"
+  },
+  {
+    "id": 861,
+    "category": "Family",
+    "question_english": "Did O.P. Jindal have granddaughters involved in business and social initiatives?",
+    "answer_english": "Yes, several of his granddaughters are active in business, education, and social causes.",
+    "question_hindi": "क्या ओ.पी. जिंदल की पोतियां व्यवसाय और सामाजिक कार्यों में सक्रिय हैं?",
+    "answer_hindi": "हाँ, उनकी कई पोतियां व्यवसाय, शिक्षा और सामाजिक कार्यों में सक्रिय हैं।"
+  },
+  {
+    "id": 862,
+    "category": "Biography",
+    "question_english": "When was O. P. Jindal born?",
+    "answer_english": "He was born on 7 August 1930",
+    "question_hindi": "O. P. Jindal ka janm kab hua?",
+    "answer_hindi": "Unka janm 7 August 1930 ko hua tha"
+  },
+  {
+    "id": 863,
+    "category": "Biography",
+    "question_english": "When did O P Jindal die?",
+    "answer_english": "He passed away on 31 March 2005 in a helicopter crash near Saharanpur, Uttar Pradesh",
+    "question_hindi": "O P Jindal ka nidhan kab hua?",
+    "answer_hindi": "Unka nidhan 31 March 2005 ko ek helicopter durghatna mein Saharanpur, Uttar Pradesh ke paas hua"
+  },
+  {
+    "id": 864,
+    "category": "Biography",
+    "question_english": "When was OP Jindal died?",
+    "answer_english": "He passed away on 31 March 2005 in a helicopter crash near Saharanpur, Uttar Pradesh",
+    "question_hindi": "OP Jindal ki mrityu kab hui?",
+    "answer_hindi": "Unka nidhan 31 March 2005 ko ek helicopter durghatna mein Saharanpur, Uttar Pradesh ke paas hua"
   }
 ]
