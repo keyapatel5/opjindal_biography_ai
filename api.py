@@ -148,6 +148,18 @@ _HARD_CONFLICTS = {
     frozenset(["family", "birth_place"]),
 }
 
+# ============================================================
+# STT PROMPT — names Whisper must recognise correctly
+# ============================================================
+
+STT_INITIAL_PROMPT = (
+    "O.P. Jindal,OP Jindal,op Jindal,O P Jindal,Jindal Steel, Savitri Devi Jindal, "
+    "Naveen Jindal, Sajjan Jindal, Prithviraj Jindal, Ratan Jindal, "
+    "Vidya Devi, Shanti Devi, Kanshi Ram, "
+    "Hisar, Haryana, Nalwa, Kurukshetra, Lok Sabha, "
+    "parliamentary constituency, personal motto, "
+    "Jindal Group, Jindal Industries, JSPL, JSW Steel."
+)
 
 def extract_intent(text: str) -> str:
     """Extract topic-intent from any text (question or answer)."""
@@ -925,7 +937,12 @@ db_watcher.start(mongo)
 def transcribe(wav_path):
     try:
         t0 = time.time()
-        segs, info = stt_model.transcribe(wav_path, beam_size=3, vad_filter=False)
+        segs, info = stt_model.transcribe(
+            wav_path,
+            beam_size=3,
+            vad_filter=False,
+            initial_prompt=STT_INITIAL_PROMPT,   # <-- KEY ADDITION
+        )
         text = " ".join(s.text for s in segs).strip()
         det  = info.language
         prob = info.language_probability
@@ -935,9 +952,15 @@ def transcribe(wav_path):
         if not text or len(text) < 2:
             return "", "en"
 
-        # Low confidence English → retry forced English
+        # Low confidence English → retry forced English (keep prompt here too)
         if det == "en" and prob < 0.5 and len(text) > 2:
-            segs2, _ = stt_model.transcribe(wav_path, beam_size=3, language="en", vad_filter=False)
+            segs2, _ = stt_model.transcribe(
+                wav_path,
+                beam_size=3,
+                language="en",
+                vad_filter=False,
+                initial_prompt=STT_INITIAL_PROMPT,   # <-- here too
+            )
             t2 = " ".join(s.text for s in segs2).strip()
             if t2 and len(t2) >= len(text):
                 text = t2
@@ -951,7 +974,6 @@ def transcribe(wav_path):
     except Exception as e:
         log.error(f"STT error: {e}", exc_info=True)
         return "", "en"
-
 
 # ============================================================
 # TTS
